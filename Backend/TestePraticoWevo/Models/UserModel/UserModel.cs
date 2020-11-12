@@ -21,6 +21,7 @@ namespace TestePraticoWevo.Models.UserModel
 
         public void Delete(User user)
         {
+            context.Users.Attach(user);
             context.Users.Remove(user);
             context.SaveChanges();
         }

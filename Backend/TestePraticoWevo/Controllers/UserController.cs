@@ -37,7 +37,7 @@ namespace TestePraticoWevo.Controllers
         }
 
         [HttpPost("delete")]
-        public StatusCodeResult Delete(int id)
+        public StatusCodeResult Delete([FromBody] int id)
         {
             var user = new User();
             user.Id = id;
@@ -46,7 +46,7 @@ namespace TestePraticoWevo.Controllers
         }
 
         [HttpGet("get")]
-        public JsonResult Get(int id)
+        public JsonResult Get([FromBody] int id)
         {
             var user = userModel.Get(id);
             return Json(user);

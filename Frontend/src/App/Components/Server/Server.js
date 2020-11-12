@@ -31,4 +31,12 @@ server.updateUser = async function (user){
     httpRequest.send(JSON.stringify(user));
 }
 
+server.deleteUser = async function (id){
+    console.log(id);
+    var httpRequest = new XMLHttpRequest();
+    httpRequest.open('post', SERVER_URL + 'user/delete', true);
+    httpRequest.setRequestHeader('Content-type', "application/json;charset=UTF-8");
+    httpRequest.send(JSON.stringify(id));
+}
+
 export default server;

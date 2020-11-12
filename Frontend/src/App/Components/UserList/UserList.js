@@ -12,7 +12,7 @@ class UserList extends Component {
             <table>
                 <tbody>
                     {this.state.userList.map((item, index)=>{
-                        return <UserListItem onItemEdit={this.props.onUserEdit} key={index} index={index} item={item}/>
+                        return <UserListItem onUserDeleted={this.props.onUserDeleted} onItemEdit={this.props.onUserEdit} key={index} index={index} item={item}/>
                     })}
                 </tbody>
             </table>
