@@ -23,11 +23,17 @@ namespace TestePraticoWevo.Controllers
         }
 
         [HttpPost("insert")]
-        public StatusCodeResult Insert([FromBody] JObject data)
+        public StatusCodeResult Insert([FromBody] User data)
         {
-            var user = data.ToObject<User>();
-            userModel.Insert(user);
-            return new StatusCodeResult(100);
+            userModel.Insert(data);
+            return new StatusCodeResult(200);
+        }
+
+        [HttpPost("update")]
+        public StatusCodeResult Update([FromBody] User data)
+        {
+            userModel.Update(data);
+            return new StatusCodeResult(200);
         }
 
         [HttpPost("delete")]
@@ -36,7 +42,7 @@ namespace TestePraticoWevo.Controllers
             var user = new User();
             user.Id = id;
             userModel.Delete(user);
-            return new StatusCodeResult(100);
+            return new StatusCodeResult(200);
         }
 
         [HttpGet("get")]

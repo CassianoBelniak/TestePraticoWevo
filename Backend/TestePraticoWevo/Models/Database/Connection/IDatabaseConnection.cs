@@ -11,5 +11,6 @@ namespace TestePraticoWevo.Models.Database
     {
         DbSet<User> Users { set; get; }
         DbSet<Sex> Sexes { set; get; }
+        void SaveChanges();
     }
 }

@@ -19,6 +19,7 @@ namespace TestePraticoWevo
 {
     public class Startup
     {
+        readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -30,11 +31,21 @@ namespace TestePraticoWevo
         public void ConfigureServices(IServiceCollection services)
         {
             var connection = Configuration["MySQlConnection:MySqlConnectionString"];
-            services.AddDbContext<DatabaseMySQLConnection>(options =>
+            services.AddDbContext<DatabaseContext>(options =>
                 options.UseMySql(connection)
             );
+            var host = Configuration["FrontendOrigin:host"];
+            services.AddCors(options =>
+            {
+                options.AddPolicy(name: MyAllowSpecificOrigins,
+                                  builder =>
+                                  {
+                                      builder.WithOrigins(host).AllowAnyHeader().AllowAnyMethod();
+                                  });
+            });
 
-            services.AddScoped<IDatabaseConnection, DatabaseMySQLConnection>();
+            //services.AddScoped<IDatabaseConnection, DatabaseMySQLConnection>();
+            services.AddDbContext<DatabaseContext>();
             services.AddScoped<IUserModel, UserModel>();
    
             services.AddControllers();
@@ -51,6 +62,8 @@ namespace TestePraticoWevo
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseCors(MyAllowSpecificOrigins);
 
             app.UseAuthorization();
 

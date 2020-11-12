@@ -8,34 +8,37 @@ namespace TestePraticoWevo.Models.UserModel
 {
     public class UserModel : IUserModel
     {
-        IDatabaseConnection connection;
-        public UserModel(IDatabaseConnection connection)
+        DatabaseContext context;
+        public UserModel(DatabaseContext context)
         {
-            this.connection = connection;
+            this.context = context;
         }
         public void Insert(User user)
         {
-            connection.Users.Add(user);
+            context.Users.Add(user);
+            context.SaveChanges();
         }
 
         public void Delete(User user)
         {
-            connection.Users.Remove(user);
+            context.Users.Remove(user);
+            context.SaveChanges();
         }
 
         public User Get(int id)
         {
-           return connection.Users.Find(id);
+           return context.Users.Find(id);
         }
 
         public List<User> List()
         {
-            return connection.Users.ToList<User>();
+            return context.Users.ToList<User>();
         }
 
         public void Update(User user)
         {
-
+            context.Users.Update(user);
+            context.SaveChanges();
         }
     }
 }

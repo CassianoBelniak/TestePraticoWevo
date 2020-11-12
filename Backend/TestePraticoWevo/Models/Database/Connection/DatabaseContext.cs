@@ -3,12 +3,11 @@ using TestePraticoWevo.Models.Database.Tables;
 
 namespace TestePraticoWevo.Models.Database
 {
-    public class DatabaseMySQLConnection: DbContext, IDatabaseConnection
+    public class DatabaseContext: DbContext
     {
-        public DatabaseMySQLConnection(DbContextOptions<DatabaseMySQLConnection> options): base(options){}
+        public DatabaseContext(DbContextOptions<DatabaseContext> options): base(options){}
 
         public DbSet<User> Users { set; get; }
         public DbSet<Sex> Sexes { set; get; }
-
     }
 }
