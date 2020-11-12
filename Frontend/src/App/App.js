@@ -23,7 +23,7 @@ class App extends Component {
     _onUserCreated(user){
         var list = this.state.userList;
         list.push(user);
-        this.setState({'userList': list});
+        this.setState({'userList': list, editingUser: null});
         Server.addUser(user);
     }
 
@@ -31,7 +31,7 @@ class App extends Component {
         var list = this.state.userList;
         list[this.editintUserIndex] = user;
         this.editintUserIndex = -1;
-        this.setState({userList:list});
+        this.setState({userList:list, editingUser: null});
         Server.updateUser(user);
     }
 

@@ -2,32 +2,37 @@ import React, { Component } from 'react';
 import "./InsertionForm.css";
 
 class InsertionForm extends Component {
+    clear_state = {
+        id:-1,
+        name: ""
+    }
     constructor(props){
         super(props);
         if (props.editUser === null){
-            this.state = {
-                id:-1,
-                name: "",
-            };
+            this.state = this.clear_state;
             this.submitButtonLabel = 'Cadastrar';
         } else {
             this.state = props.editUser;
             this.submitButtonLabel = 'Salvar';
         }
-
     }
-    
+
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.editUser === null){
+            this._clear();
+        } else {
+            this.submitButtonLabel = 'Salvar';
+            this.setState(nextProps.editUser);
+        }
+    }
+
     _onSubmit(){
         if (this.state.id === -1){
             this.props.onUserCreated(this.state);
         } else {
             this.props.onUserEdited(this.state);
         }
-        this.setState({
-            id:-1,
-            name: ""
-        })
-        this._clear();
+
     }
 
     _onClear(){
@@ -35,10 +40,7 @@ class InsertionForm extends Component {
     }
 
     _clear(){
-        this.setState({
-            id:-1,
-            name: ""
-        }) 
+        this.setState(this.clear_state)
         this.submitButtonLabel = 'Cadastrar';
     }
 
@@ -53,9 +55,13 @@ class InsertionForm extends Component {
             return <button type="button" onClick={this._onClear.bind(this)}>Limpar</button>
     }
 
+    handleSubmit(event) {
+        event.preventDefault();
+    }
+
     render() { 
         return ( 
-            <form className="Insertion-form_form">
+            <form className="Insertion-form_form" onSubmit={this.handleSubmit}>
                 <h3>Inserir novo usuário</h3>
                 <div><label>Nome: </label><input type="text" placeholder="nome..." value={this.state.name} onChange={this._onChange('name').bind(this)}></input></div>
                 <div>
