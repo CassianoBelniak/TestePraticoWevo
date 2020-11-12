@@ -37,7 +37,7 @@ class App extends Component {
 
     _onUserClicked(index){
         this.editintUserIndex = index;
-        this.setState({editingUser: this.state.userList[index]})
+        this.setState((state, props)=>({editingUser: state.userList[index]}))
     }
 
     _onUserDeleted(id, index){
@@ -54,15 +54,14 @@ class App extends Component {
         return ( 
             <div className="App">
                 <InsertionForm 
-                    key={this.state.editingUser} 
                     editUser={this.state.editingUser} 
                     onUserCreated={this._onUserCreated.bind(this)} 
                     onUserEdited={this._onUserEdited.bind(this)}               
                 />
+                
                 <UserList 
-                    onUserEdit={this._onUserClicked.bind(this)} 
-                    key={this.state.userList} 
                     userList={this.state.userList}
+                    onUserEdit={this._onUserClicked.bind(this)} 
                     onUserDeleted={this._onUserDeleted.bind(this)}
                 />
             </div>
