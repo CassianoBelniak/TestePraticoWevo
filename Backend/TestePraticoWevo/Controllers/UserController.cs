@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json.Linq;
 using TestePraticoWevo.Models.Database.Tables;
 using TestePraticoWevo.Models.UserModel;
 

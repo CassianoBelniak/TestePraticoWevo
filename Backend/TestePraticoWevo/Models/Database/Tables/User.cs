@@ -13,7 +13,10 @@ namespace TestePraticoWevo.Models.Database.Tables
         public string CPF { set; get; }
         public string Email { set; get; }
         public string Phone { set; get; }
+        [ForeignKey("SexId")]
         public Sex Sex { set; get; }
+        public int SexId { set; get; }
+        [Column(TypeName = "Date")]
         public DateTime Birthday { set; get; }
     }
 }

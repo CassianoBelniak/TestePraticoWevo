@@ -21,6 +21,7 @@ class App extends Component {
     }
 
     _onUserCreated(user){
+        console.log(user)
         var list = this.state.userList;
         list.push(user);
         this.setState({'userList': list, editingUser: null});
