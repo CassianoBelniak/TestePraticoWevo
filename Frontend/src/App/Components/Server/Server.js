@@ -18,7 +18,7 @@ server.getUserList = async function(){
 
 server.addUser = async function (user){
     delete user.id; 
-    user.cpf = user.CPF.split(".").join("").replace('-','');
+    user.cpf = user.cpf.split(".").join("").replace('-','');
     var httpRequest = new XMLHttpRequest();
     httpRequest.open('post', SERVER_URL + 'user/insert', true);
     httpRequest.setRequestHeader('Content-type', "application/json;charset=UTF-8");
@@ -26,7 +26,7 @@ server.addUser = async function (user){
 }
 
 server.updateUser = async function (user){
-    user.cpf = user.CPF.split(".").join("").replace('-','');
+    user.cpf = user.cpf.split(".").join("").replace('-','');
     var httpRequest = new XMLHttpRequest();
     httpRequest.open('post', SERVER_URL + 'user/update', true);
     httpRequest.setRequestHeader('Content-type', "application/json;charset=UTF-8");

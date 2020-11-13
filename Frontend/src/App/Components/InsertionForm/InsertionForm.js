@@ -6,7 +6,7 @@ class InsertionForm extends Component {
     id: -1,
     name: "",
     email: "",
-    CPF: "",
+    cpf: "",
     phone: "",
     birthday: this.formatDate(Date()),
     sexId: 1,
@@ -26,20 +26,24 @@ class InsertionForm extends Component {
     if (nextProps.editUser === null) {
       this._clear();
     } else {
+        console.log(nextProps)
       this.submitButtonLabel = "Salvar";
       this.setState(nextProps.editUser);
+      this.setState({cpf:this.mCPF(nextProps.editUser.cpf)})
     }
   }
 
   _onSubmit() {
     var user = {
+        id: this.state.id,
       name: this.state.name,
       email: this.state.email,
-      CPF: this.state.CPF,
+      cpf: this.state.cpf,
       phone: this.state.phone,
       birthday: this.state.birthday,
       sexId: parseInt(this.state.sexId),
     };
+    console.log(user);
     if (this.validateFields(user)) {
       if (this.state.id === -1) {
         this.props.onUserCreated(user);
@@ -70,7 +74,7 @@ class InsertionForm extends Component {
         this.setState({error_email:"O e-mail é inválido"})
         result = false;
     }
-    if (user.CPF.length !== 14) {
+    if (user.cpf.length !== 14) {
         this.setState({error_cpf:"CPF não preenchido corretamente"})
         result = false;
     }
@@ -104,6 +108,8 @@ class InsertionForm extends Component {
         return tel;
     }
     mCPF(cpf){
+        if (cpf === undefined)
+            return ""
         cpf=cpf.replace(/\D/g,"")
         cpf=cpf.replace(/(\d{3})(\d)/,"$1.$2")
         cpf=cpf.replace(/(\d{3})(\d)/,"$1.$2")
@@ -180,8 +186,8 @@ class InsertionForm extends Component {
           <input
             type="text"
             placeholder="CPF..."
-            value={this.state.CPF}
-            onChange={this._onChange("CPF").bind(this)}
+            value={this.mCPF(this.state.cpf)}
+            onChange={this._onChange("cpf").bind(this)}
           ></input>
           <div className="Insertion-form_error">{this.state.error_cpf}</div>
         </div>
