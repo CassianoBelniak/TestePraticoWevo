@@ -4,7 +4,12 @@ import "./InsertionForm.css";
 class InsertionForm extends Component {
     clear_state = {
         id:-1,
-        name: ""
+        name: "",
+        email: "",
+        cpf: "",
+        phone: "",
+        birthday: this.formatDate(Date()),
+        sex: 0
     }
     constructor(props){
         super(props);
@@ -33,6 +38,20 @@ class InsertionForm extends Component {
             this.props.onUserEdited(this.state);
         }
 
+    }
+
+    formatDate(date) {
+        var d = new Date(date),
+            month = '' + (d.getMonth() + 1),
+            day = '' + d.getDate(),
+            year = d.getFullYear();
+    
+        if (month.length < 2) 
+            month = '0' + month;
+        if (day.length < 2) 
+            day = '0' + day;
+    
+        return [year, month, day].join('-');
     }
 
     _onClear(){
@@ -64,6 +83,15 @@ class InsertionForm extends Component {
             <form className="Insertion-form_form" onSubmit={this.handleSubmit}>
                 <h3>Inserir novo usuário</h3>
                 <div><label>Nome: </label><input type="text" placeholder="nome..." value={this.state.name} onChange={this._onChange('name').bind(this)}></input></div>
+                <div><label>E-mail: </label><input type="email" placeholder="email..." value={this.state.email} onChange={this._onChange('email').bind(this)}></input></div>
+                <div><label>CPF: </label><input type="text" placeholder="CPF..." value={this.state.CPF} onChange={this._onChange('cpf').bind(this)}></input></div>
+                <div><label>Telefone: </label><input type="text" placeholder="telefone..." value={this.state.phone} onChange={this._onChange('phone').bind(this)}></input></div>
+                <div><label>Data de Nascimento: </label><input type="date" placeholder="data de nascimento..." value={this.formatDate(this.state.birthday)} onChange={this._onChange('birthday').bind(this)}></input></div>
+                <div><label>Sexo: </label><select value={this.state.sex} onChange={this._onChange('sex').bind(this)}>
+                    <option value="1">Feminino</option>
+                    <option value="2">Masculino</option>
+                    <option value="3">Não informado</option>
+                </select></div>
                 <div>
                     <button type="button" onClick={this._onSubmit.bind(this)}>{this.submitButtonLabel}</button>
                     {this._renderClearButton()}
