@@ -22,11 +22,21 @@ class App extends Component {
 
     _onUserCreated(user){
         console.log(user)
+        Server.addUser(user);
+        var date = new Date(user.birthday);
+        date.setDate(date.getDate() + 2);
+        user.birthday = this.formatDate(date);
         var list = this.state.userList;
         list.push(user);
         this.setState({'userList': list, editingUser: null});
-        Server.addUser(user);
     }
+
+    formatDate(date) {
+        date = new Date(date)
+        return new Date(date.getTime() - (date.getTimezoneOffset() * 60000 ))
+                        .toISOString()
+                        .split("T")[0];
+      }
 
     _onUserEdited(user){
         var list = this.state.userList;

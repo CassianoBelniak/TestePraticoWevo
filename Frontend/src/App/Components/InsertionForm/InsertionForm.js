@@ -40,10 +40,10 @@ class InsertionForm extends Component {
       email: this.state.email,
       cpf: this.state.cpf,
       phone: this.state.phone,
-      birthday: this.state.birthday,
       sexId: parseInt(this.state.sexId),
     };
-    console.log(user);
+    var date = new Date(this.state.birthday);
+    user.birthday = this.formatDate(date);
     if (this.validateFields(user)) {
       if (this.state.id === -1) {
         this.props.onUserCreated(user);
